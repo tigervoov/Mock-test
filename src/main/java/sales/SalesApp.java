@@ -6,6 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 public class SalesApp {
+    SalesDao salesDao;
+
+    public SalesApp(){
+        salesDao = new SalesDao();
+    }
 
     public void generateSalesActivityReport(String salesId, int maxRow, boolean isNatTrade, boolean isSupervisor) {
 
@@ -17,9 +22,9 @@ public class SalesApp {
         Sales sales = checkSalesDate(salesId);//
 
         if (sales == null) return;
-        List<SalesReportData> reportDataList = salesReportDao.getReportData(sales);//
+        List<SalesReportData> reportDataList = salesReportDao.getReportData(sales);
 
-        List<SalesReportData> filteredReportDataList = getFilterReportDataList(maxRow, isSupervisor, reportDataList);
+        List<SalesReportData> filteredReportDataList = getFilterReportDataList(maxRow, isSupervisor, reportDataList);//
 
         List<String> headers = getHeaders(isNatTrade);//
 
@@ -63,7 +68,6 @@ public class SalesApp {
     }
 
     protected Sales checkSalesDate(String salesId) {
-        SalesDao salesDao = new SalesDao();
         if (salesId == null) {
             return null;
         }
